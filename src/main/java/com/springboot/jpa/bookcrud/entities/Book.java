@@ -3,12 +3,14 @@ package com.springboot.jpa.bookcrud.entities;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,8 +23,8 @@ public class Book {
 	private int id;
 	@Column(name = "title")
 	private String title;
-	@Column(name = "author")
-	private String author;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Author author;
 	@Column(name = "publisher")
 	private String publisher;
 	@Column(name = "price")
@@ -45,7 +47,7 @@ public class Book {
 
 	}
 
-	public Book(int id, String title, String author, String publisher, float price, String edition, String isbn,
+	public Book(int id, String title, Author author, String publisher, float price, String edition, String isbn,
 			int pages, List<String> country_Restrictions, Map<String, Float> ratings) {
 		super();
 		this.id = id;
@@ -76,11 +78,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(Author author) {
 		this.author = author;
 	}
 
@@ -143,8 +145,10 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publisher=" + publisher + ", price="
-				+ price + ", edition=" + edition + ", ISBN=" + isbn + ", pages=" + pages + ", country_Restrictions="
+				+ price + ", edition=" + edition + ", isbn=" + isbn + ", pages=" + pages + ", country_Restrictions="
 				+ country_Restrictions + ", ratings=" + ratings + "]";
 	}
+
+	
 
 }
